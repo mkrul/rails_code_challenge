@@ -3,7 +3,6 @@ require 'test_helper'
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @task = tasks(:default)
-    @pending_task = tasks(:pending)
   end
 
   should "get index" do
@@ -28,6 +27,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to task_url(Task.last)
+    assert_equal "Task was successfully created.", flash[:notice]
   end
 
   should "show task" do
@@ -48,12 +48,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_redirected_to task_url(@task)
+    assert_equal "Task was successfully updated.", flash[:notice]
   end
 
   should "toggle_completion" do
-    put toggle_completion_path(@pending_task)
+    put toggle_completion_path(@task)
     assert_redirected_to tasks_url
-    assert_equal "Task was marked as completed", flash[:notice]
+    assert_equal "Task was marked as complete.", flash[:notice]
   end
 
   should "destroy task" do
@@ -62,5 +63,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to tasks_url
+    assert_equal "Task was successfully destroyed.", flash[:notice]
   end
 end

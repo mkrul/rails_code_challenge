@@ -1,10 +1,6 @@
 default:
   title: do dishes 
   description: wash and dry the dishes and put them away
-
-pending:
-  title: walk the dog
-  description: walk the dog around the block three times
   status: pending
 
 complete:

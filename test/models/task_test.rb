@@ -3,7 +3,7 @@ require 'test_helper'
 class TaskTest < ActiveSupport::TestCase
   context '#new_status' do
     setup do
-      @pending_task = tasks(:pending)
+      @pending_task = tasks(:default)
       @completed_task = tasks(:complete)
     end
 

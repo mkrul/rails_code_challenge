@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   STATUS_PENDING = 'pending'.freeze
 
   def new_status
-    status == STATUS_COMPLETE ? STATUS_PENDING : STATUS_COMPLETE
+    self.status == STATUS_COMPLETE ? STATUS_PENDING : STATUS_COMPLETE
   end
 
 end

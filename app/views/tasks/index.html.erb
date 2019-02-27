@@ -21,7 +21,7 @@
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to "Mark #{task.new_status}", task, method: :toggle_completion %></td>
+        <td><%= link_to "Mark #{task.new_status}", toggle_completion_path(task), method: :put %></td>
       </tr>
     <% end %>
   </tbody>
