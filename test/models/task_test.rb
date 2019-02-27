@@ -3,8 +3,8 @@ require 'test_helper'
 class TaskTest < ActiveSupport::TestCase
   context '#new_status' do
     setup do
-      @pending_task = Task.new(status: 'pending')
-      @completed_task = Task.new(status:'complete')
+      @pending_task = tasks(:pending)
+      @completed_task = tasks(:complete)
     end
 
     should "return 'complete' if status is 'pending'" do

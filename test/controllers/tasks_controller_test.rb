@@ -2,43 +2,61 @@ require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @task = tasks(:one)
+    @task = tasks(:default)
+    @pending_task = tasks(:pending)
   end
 
-  test "should get index" do
+  should "get index" do
     get tasks_url
     assert_response :success
   end
 
-  test "should get new" do
+  should "get new" do
     get new_task_url
     assert_response :success
   end
 
-  test "should create task" do
+  should "create task" do
     assert_difference('Task.count') do
-      post tasks_url, params: { task: { description: @task.description, title: @task.title } }
+      post tasks_url, params: {
+        task: {
+          description: @task.description, 
+          title: @task.title,
+          status: 'pending'
+        }
+      }
     end
 
     assert_redirected_to task_url(Task.last)
   end
 
-  test "should show task" do
+  should "show task" do
     get task_url(@task)
     assert_response :success
   end
 
-  test "should get edit" do
+  should "get edit" do
     get edit_task_url(@task)
     assert_response :success
   end
 
-  test "should update task" do
-    patch task_url(@task), params: { task: { description: @task.description, title: @task.title } }
+  should "update task" do
+    patch task_url(@task), params: { 
+      task: { 
+        description: @task.description,
+        title: @task.title
+      }
+    }
     assert_redirected_to task_url(@task)
   end
 
-  test "should destroy task" do
+  should "toggle_completion" do
+    put toggle_completion_path(@pending_task)
+    assert_redirected_to tasks_url
+    assert_equal "Task was marked as completed", flash[:notice]
+  end
+
+  should "destroy task" do
     assert_difference('Task.count', -1) do
       delete task_url(@task)
     end
