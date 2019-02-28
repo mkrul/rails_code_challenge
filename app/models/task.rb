@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  validates :status, inclusion: { in: %w(complete pending) }
 
   STATUS_COMPLETE = "complete".freeze
   STATUS_PENDING = "pending".freeze
