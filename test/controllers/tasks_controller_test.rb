@@ -54,7 +54,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   should "toggle_completion" do
     put toggle_completion_path(@task)
     assert_redirected_to tasks_url
-    assert_equal Time.now, @task.completed_at
     assert_equal "Task was marked as complete.", flash[:notice]
   end
 
