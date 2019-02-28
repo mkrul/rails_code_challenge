@@ -7,4 +7,7 @@ class Task < ApplicationRecord
     status == STATUS_COMPLETE ? STATUS_PENDING : STATUS_COMPLETE
   end
 
+  def new_completed_at_time
+    completed_at == nil ? Time.now : nil
+  end
 end

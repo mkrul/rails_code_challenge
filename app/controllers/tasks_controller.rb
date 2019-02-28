@@ -52,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def toggle_completion
-    if @task.update(status: @task.new_status)
+    if @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
       respond_to do |format|
         format.html { redirect_to tasks_url, notice: "Task was marked as #{@task.status}." }
         format.json { render :index, status: ok }

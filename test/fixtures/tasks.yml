@@ -2,8 +2,10 @@ default:
   title: do dishes 
   description: wash and dry the dishes and put them away
   status: pending
+  completed_at: nil
 
 complete:
   title: homework
   description: write 2-page essay for economics class
   status: complete
+  completed_at: <%= 1.day.ago %> 
