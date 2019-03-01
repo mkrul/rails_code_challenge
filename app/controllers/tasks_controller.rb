@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
   before_action :get_list_titles, only: [:new, :edit]
-  before_action :get_list_id_from_title, only: [:new]
+  before_action :get_list_id_from_title, only: [:edit, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -26,6 +26,11 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    task_params = {
+      title: params[:task][:title],
+      description: params[:task][:description],
+      list_id: @list_id
+    }
     @task = Task.new(task_params)
 
     respond_to do |format|
@@ -69,12 +74,19 @@ class TasksController < ApplicationController
   end
 
   def toggle_completion
-    if @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
-      respond_to do |format|
-        format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
-        format.json { render :index, status: ok }
-      end 
-    end 
+    
+    @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
+    list = List.find(@task.list_id)
+
+    if list.tasks.all?(&:completed_at)
+      list.update(status: List::STATUS_COMPLETE, completed_at: @task.completed_at)
+    else
+      list.update(status: List::STATUS_PENDING, completed_at: nil)
+    end
+    respond_to do |format|
+      format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
+      format.json { render :index, status: ok }
+    end  
   end
 
   private

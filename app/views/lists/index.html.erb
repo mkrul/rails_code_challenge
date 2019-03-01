@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <span class="header">To-Do Lists</span>
-<%= link_to "Create New List", new_list_path %>
+<%= link_to "Create New List", new_list_path %> |
+<%= link_to "Create New Task", new_task_path %>
 
 <div class="list-container">
   <% @lists.each do |list| %>
