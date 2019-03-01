@@ -23,7 +23,7 @@ class ListsController < ApplicationController
   end
 
   def add_task
-  
+    @task = Task.new
   end
 
   # POST /lists
