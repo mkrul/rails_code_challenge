@@ -1,10 +1,10 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
+<%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
-      <% task.errors.full_messages.each do |message| %>
+      <% @task.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,16 +12,27 @@
   <% end %>
 
   <div class="field">
+    <strong>List: </strong>
+    <% if current_page?(controller: "tasks", action: "new") %>
+      <%= form.select :list_name, options_for_select(list) %>
+    <% else %>
+      <%= list.title %>
+      <%= form.hidden_field :list_id, value: list.id %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :task_title %>
+    <%= form.text_field :title %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :task_description %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>

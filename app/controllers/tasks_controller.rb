@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
+  before_action :create_default_list, only: [:new]
 
   # GET /tasks
   # GET /tasks.json
@@ -15,7 +16,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @lists = List.all
+    @lists = List.all.map(&:title)
   end
 
   # GET /tasks/1/edit
@@ -75,6 +76,10 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def create_default_list
+      @lists = List.create(title: "My List")
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
