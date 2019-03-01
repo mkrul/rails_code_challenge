@@ -66,6 +66,15 @@ class ListsController < ApplicationController
     end
   end
 
+  def toggle_completion
+    if @list.update(status: @list.new_status, completed_at: @list.new_completed_at_time)
+      respond_to do |format|
+        format.html { redirect_to lists_url, notice: "List was marked as #{@list.status}." }
+        format.json { render :index, status: ok }
+      end 
+    end 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list

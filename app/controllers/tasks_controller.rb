@@ -58,15 +58,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def toggle_completion
-    if @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
-      respond_to do |format|
-        format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
-        format.json { render :index, status: ok }
-      end
-    end
-  end
-
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
@@ -75,6 +66,15 @@ class TasksController < ApplicationController
       format.html { redirect_to lists_url, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_completion
+    if @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
+      respond_to do |format|
+        format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
+        format.json { render :index, status: ok }
+      end 
+    end 
   end
 
   private
