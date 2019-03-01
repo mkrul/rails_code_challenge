@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
-  before_action :create_default_list, only: [:new]
+  before_action :set_list_names, only: [:new, :edit]
 
   # GET /tasks
   # GET /tasks.json
@@ -16,7 +16,6 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @lists = List.all.map(&:title)
   end
 
   # GET /tasks/1/edit
@@ -30,7 +29,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
+        format.html { redirect_to lists_url, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -42,9 +41,15 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    list_id = List.find_by_title(params[:task][:list_name]).id
+    task_params = {
+      title: params[:task][:title],
+      description: params[:task][:description],
+      list_id: list_id
+    }
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
+        format.html { redirect_to lists_url, notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -56,7 +61,7 @@ class TasksController < ApplicationController
   def toggle_completion
     if @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
       respond_to do |format|
-        format.html { redirect_to tasks_url, notice: "Task was marked as #{@task.status}." }
+        format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
         format.json { render :index, status: ok }
       end
     end
@@ -67,7 +72,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to lists_url, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -78,12 +83,13 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
-    def create_default_list
-      @lists = List.create(title: "My List")
+    def set_list_names
+      List.create(title: "My List") unless List.any?
+      @list_names = List.all.map(&:title)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :list_id)
+      params.require(:task).permit(:title, :description, :list_id, :list_name)
     end
 end

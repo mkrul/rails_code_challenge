@@ -19,7 +19,7 @@
         <td><%= link_to "Show", task %></td>
         <td><%= link_to "Edit", edit_task_path(task) %></td>
         <td><%= link_to "Delete", task, method: :delete %></td>
-        <td><%= link_to "Mark #{task.new_status}", toggle_completion_path(task), method: :put %></td>
+        <td><%= link_to "Mark #{task.new_status}", toggle_completion_path(task), method: :put, remote: true %></td>
       </tr>
     <% end %>
   </tbody>
