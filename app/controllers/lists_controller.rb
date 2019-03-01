@@ -1,10 +1,11 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_task]
 
   # GET /lists
   # GET /lists.json
   def index
     @lists = List.all
+    @misc_tasks = Task.where(list_id: nil)
   end
 
   # GET /lists/1
@@ -19,6 +20,10 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
+  end
+
+  def add_task
+  
   end
 
   # POST /lists
