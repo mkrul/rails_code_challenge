@@ -1,5 +1,5 @@
 <h1>New Task</h1>
 
-<%= render partial: "form", locals: { task: @task, list: @list_names } %>
+<%= render "form", task: @task, list: @list_titles %>
 
 <%= link_to "Back", tasks_path %>

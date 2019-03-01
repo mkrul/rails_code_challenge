@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
-  before_action :set_list_names, only: [:new, :edit]
+  before_action :get_list_titles, only: [:new, :edit]
+  before_action :get_list_id_from_title, only: [:new]
 
   # GET /tasks
   # GET /tasks.json
@@ -41,11 +42,10 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    list_id = List.find_by_title(params[:task][:list_name]).id
     task_params = {
       title: params[:task][:title],
       description: params[:task][:description],
-      list_id: list_id
+      list_id: @list_id
     }
     respond_to do |format|
       if @task.update(task_params)
@@ -83,9 +83,13 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
-    def set_list_names
+    def get_list_titles
       List.create(title: "My List") unless List.any?
-      @list_names = List.all.map(&:title)
+      @list_titles = List.all.map(&:title)
+    end
+
+    def get_list_id_from_title
+      @list_id = List.find_by_title(params[:task][:list_name]).id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_task]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_task, :toggle_complete]
 
   # GET /lists
   # GET /lists.json
@@ -66,13 +66,16 @@ class ListsController < ApplicationController
     end
   end
 
-  def toggle_completion
-    if @list.update(status: @list.new_status, completed_at: @list.new_completed_at_time)
-      respond_to do |format|
-        format.html { redirect_to lists_url, notice: "List was marked as #{@list.status}." }
-        format.json { render :index, status: ok }
-      end 
-    end 
+  def toggle_complete
+    @list.update(status: @list.new_status, completed_at: @list.new_completed_at_time)
+    @list.tasks.each do |task|
+      task.update(status: @list.status, completed_at: @list.completed_at)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to lists_url, notice: "List was marked as #{@list.status}." }
+      format.json { render :index, status: ok }
+    end
   end
 
   private
