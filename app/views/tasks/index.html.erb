@@ -1,9 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<table>
+  <thead>
+    <th><h1>Tasks</h1></th>
+    <th>
+      <div class="horizontal-menu">
+        <%= link_to "New Task", new_task_path %>
+      </div>
+    </th>
+  </thead>
+</table>
+
 <%= render partial: "tasks", locals: { tasks: @tasks } %>
 
 <br>
 
-<%= link_to "New Task", new_task_path %>
+<%= link_to "Back to Lists", lists_path %>
 

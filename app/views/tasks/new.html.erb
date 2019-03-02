@@ -2,4 +2,8 @@
 
 <%= render "form", task: @task, list: @list_titles %>
 
-<p><%= link_to "Back to Lists", lists_path %></p>
+<p>
+  <%= link_to "Back to Lists", lists_path %> |
+  <%= link_to "Back to Tasks", tasks_path %>
+</p>
+
