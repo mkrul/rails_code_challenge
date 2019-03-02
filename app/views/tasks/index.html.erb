@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<%= render partial: "tasks_list", locals: { tasks_header: "Tasks", tasks: @tasks } %>
+<h1>Tasks</h1>
+<%= render partial: "tasks", locals: { tasks: @tasks } %>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to "New Task", new_task_path %>
+

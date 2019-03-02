@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <th><h1><%="#{list.title}"%></h1></th>
+    <th>
+      <div class="horizontal-menu">
+        <%= link_to "Show", list %> |
+        <%= link_to "Edit", edit_list_path(list) %> |
+        <%= link_to "Delete", list, method: :delete, data: { confirm: "Are you sure?" } %> |
+        <%= link_to "Add Task", add_task_path(list) %> |
+        <%= link_to "Mark #{list.new_status}", toggle_complete_path(list), method: :put %>
+      </div>
+    </th>
+  </thead>
+</table>
+
+<%= render partial: "tasks", locals: { tasks: list.tasks } %>
+

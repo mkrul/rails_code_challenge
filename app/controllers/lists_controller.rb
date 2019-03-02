@@ -20,6 +20,10 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
+    # get partial that contains:
+    # list from params[:id]
+    # all tasks from that list
+
   end
 
   def add_task

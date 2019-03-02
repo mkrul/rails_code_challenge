@@ -2,4 +2,7 @@
 
 <%= render partial: "tasks/form", locals: { task: @task, list: @list } %>
 
-<%= link_to "Back", lists_path %>
+<p>
+  <%= link_to "Show", @list %> |
+  <%= link_to "Back to Lists", lists_path %>
+</p>

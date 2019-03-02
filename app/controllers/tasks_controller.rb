@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
   before_action :get_list_titles, only: [:new, :edit]
-  before_action :get_list_id_from_title, only: [:edit, :create]
+  before_action :get_list_id_from_title, only: [:update, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -101,7 +101,9 @@ class TasksController < ApplicationController
     end
 
     def get_list_id_from_title
-      @list_id = List.find_by_title(params[:task][:list_name]).id
+      unless @list_id = params[:task][:list_id]
+        @list_id = List.find_by_title(params[:task][:list_name]).id
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

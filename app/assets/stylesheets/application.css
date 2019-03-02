@@ -14,6 +14,10 @@
  *= require_self
  */
 
+.horizontal-menu {
+  padding: 0 15px;
+}
+
 .list-container {
   margin: 20px 10px;
 }
