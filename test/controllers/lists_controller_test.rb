@@ -43,11 +43,29 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to list_url(@list)
   end
 
-  should "toggle_complete" do
-    put toggle_complete_path(@list)
-    @list.reload
-    assert_redirected_to lists_url
-    assert_equal "List was marked as #{@list.status}.", flash[:notice]
+  context "toggle_complete" do
+    setup do
+      @pending_list = lists(:pending)
+      @complete_list = lists(:complete)
+    end
+
+    should "mark a 'pending' list and all of its tasks as 'complete'" do
+      put toggle_complete_path(@pending_list)
+      @pending_list.reload
+      assert @pending_list.completed_at.present?
+      assert_equal @pending_list.completed_at, @pending_list.tasks[0].completed_at
+      assert_redirected_to lists_url
+      assert_equal "List was marked as complete.", flash[:notice]
+    end
+
+    should "mark a 'complete' list and all of its tasks as 'pending'" do
+      put toggle_complete_path(@complete_list)
+      @complete_list.reload
+      refute @complete_list.completed_at.nil?
+      assert_equal @complete_list.completed_at, @complete_list.tasks[0].completed_at
+      assert_redirected_to lists_url
+      assert_equal "List was marked as pending.", flash[:notice]
+    end
   end
 
   should "destroy list" do

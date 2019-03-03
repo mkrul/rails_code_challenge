@@ -4,8 +4,14 @@ default:
   status: pending
   completed_at: nil
 
-with_tasks:
+complete:
   id: 2
   title: School
-  status: pending
+  status: complete
+  completed_at: <% 1.day.ago %>
 
+pending:
+  id: 3
+  title: outdoors
+  status: pending
+  completed_at: nil
