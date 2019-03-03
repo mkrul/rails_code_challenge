@@ -38,6 +38,13 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to list_url(@list)
   end
 
+  test "toggle_complete" do
+    put toggle_complete_path(@list)
+    @list.reload
+    assert_redirected_to lists_url
+    assert_equal "List was marked as #{@list.status}.", flash[:notice]
+  end
+
   test "should destroy list" do
     assert_difference("List.count", -1) do
       delete list_url(@list)

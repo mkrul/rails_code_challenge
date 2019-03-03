@@ -13,3 +13,10 @@ complete:
   completed_at: <%= 1.day.ago %> 
   list_id: 2
 
+pending:
+  id: 3
+  title: rake leaves
+  descrption: rake fallen leaves into piles
+  status: pending
+  completed_at: nil
+  list_id: 3

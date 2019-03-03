@@ -29,8 +29,8 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Task.count") do
       post tasks_url, params: {
         task: {
-          description: @task.description, 
           title: @task.title,
+          description: @task.description, 
           status: "pending"
         }
       }
@@ -43,8 +43,8 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   should "update task" do
     patch task_url(@task), params: { 
       task: { 
-        description: @task.description,
-        title: @task.title
+        title: @task.title,
+        description: @task.description
       }
     }
     assert_redirected_to lists_url 

@@ -1,7 +1,11 @@
 default:
   id: 1
   title: My List
+  status: pending
+  completed_at: nil
 
 with_tasks:
   id: 2
   title: School
+  status: pending
+
