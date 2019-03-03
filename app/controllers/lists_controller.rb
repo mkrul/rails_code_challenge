@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_task, :toggle_complete]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :new_list_task, :toggle_complete]
 
   # GET /lists
   # GET /lists.json
@@ -20,13 +20,9 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
-    # get partial that contains:
-    # list from params[:id]
-    # all tasks from that list
-
   end
 
-  def add_task
+  def new_list_task
     @task = Task.new
   end
 

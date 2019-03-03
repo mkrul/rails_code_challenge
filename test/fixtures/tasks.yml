@@ -16,7 +16,7 @@ complete:
 pending:
   id: 3
   title: rake leaves
-  descrption: rake fallen leaves into piles
+  description: rake fallen leaves into piles
   status: pending
   completed_at: nil
   list_id: 3
