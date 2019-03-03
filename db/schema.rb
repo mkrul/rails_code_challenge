@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190303112648) do
+ActiveRecord::Schema.define(version: 20190303145329) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title"
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20190303112648) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tasks_id"
-    t.integer "lists_id"
-    t.index ["lists_id"], name: "index_subtasks_on_lists_id"
-    t.index ["tasks_id"], name: "index_subtasks_on_tasks_id"
+    t.integer "task_id"
+    t.integer "list_id"
+    t.index ["list_id"], name: "index_subtasks_on_list_id"
+    t.index ["task_id"], name: "index_subtasks_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|

@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :new_list_task, :toggle_complete]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :new_added_task, :toggle_complete]
   before_action :check_misc_tasks_list
 
   # GET /lists
@@ -23,7 +23,7 @@ class ListsController < ApplicationController
   def edit
   end
 
-  def new_list_task
+  def new_added_task
     @task = Task.new
   end
 

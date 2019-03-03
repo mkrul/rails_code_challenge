@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :list, optional: true
+  has_many :subtasks
   validates :status, inclusion: { in: %w(complete pending) }
 
   STATUS_COMPLETE = "complete".freeze

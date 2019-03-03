@@ -1,5 +1,5 @@
 class SubtasksController < ApplicationController
-  before_action :set_subtask, only: [:show, :edit, :update, :destroy]
+  before_action :set_subtask, only: [:show, :edit, :update, :destroy, :new_added_subtask]
 
   # GET /subtasks
   # GET /subtasks.json
@@ -19,6 +19,9 @@ class SubtasksController < ApplicationController
 
   # GET /subtasks/1/edit
   def edit
+  end
+
+  def new_added_subtask
   end
 
   # POST /subtasks
