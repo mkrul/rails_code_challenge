@@ -1,5 +1,5 @@
 class SubtasksController < ApplicationController
-  before_action :set_subtask, only: [:show, :edit, :update, :destroy]
+  before_action :set_subtask, only: [:show, :edit, :update, :destroy, :toggle_complete_subtask]
 
   # GET /subtasks
   # GET /subtasks.json
@@ -60,6 +60,22 @@ class SubtasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to task_path(@subtask.task), notice: "Subtask was successfully deleted." }
       format.json { head :no_content }
+    end
+  end
+
+  def toggle_complete_subtask
+    @subtask.update(status: @subtask.new_status, completed_at: @subtask.new_completed_at_time)
+    
+    task = @subtask.task
+    subtasks = task.subtasks
+    tasks = @subtask.task.list.tasks
+
+    if subtasks.all?(&:status) == @subtask.status
+      task.update(status: @subtask.status, completed_at: @subtask.completed_at)
+    end
+    respond_to do |format|
+      format.html { redirect_to task }
+      format.json { render :index, status: ok }
     end
   end
 

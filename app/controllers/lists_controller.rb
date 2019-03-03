@@ -70,6 +70,9 @@ class ListsController < ApplicationController
     @list.update(status: @list.new_status, completed_at: @list.new_completed_at_time)
     @list.tasks.each do |task|
       task.update(status: @list.status, completed_at: @list.completed_at)
+      task.subtasks.each do |subtask|
+        subtask.update(status: @list.status, completed_at: @list.completed_at)
+      end
     end
 
     respond_to do |format|

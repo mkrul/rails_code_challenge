@@ -7,7 +7,7 @@
         <%= link_to "Edit", edit_task_path(@task) %> |
         <%= link_to "Delete", @task, method: :delete, data: { confirm: "Are you sure?" } %> |
         <%= link_to "New Subtask", new_subtask_url(task_id: @task.id) %> |
-        <%= link_to "Mark #{@task.new_status}", toggle_complete_path(@task), method: :put %>
+        <%= link_to "Mark #{@task.new_status}", toggle_completion_path(@task), method: :put, remote: true %>
       </div>
     </th>
   </thead>

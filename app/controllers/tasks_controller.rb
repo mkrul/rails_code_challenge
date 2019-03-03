@@ -83,13 +83,18 @@ class TasksController < ApplicationController
 
   def toggle_completion
     @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
-    list = List.find(@task.list_id)
+ 
+    @task.subtasks.each do |subtask|
+      subtask.update(status: @task.status, completed_at: @task.completed_at)
+    end
 
+    list = List.find(@task.list_id)
     if list.tasks.all?(&:completed_at)
       list.update(status: List::STATUS_COMPLETE, completed_at: @task.completed_at)
     else
       list.update(status: List::STATUS_PENDING, completed_at: nil)
     end
+ 
     respond_to do |format|
       format.html { redirect_to lists_url, notice: "Task was marked as #{@task.status}." }
       format.json { render :index, status: ok }
