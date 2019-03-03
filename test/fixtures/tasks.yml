@@ -1,11 +1,15 @@
 default:
+  id: 1
   title: do dishes 
   description: wash and dry the dishes and put them away
   status: pending
   completed_at: nil
 
 complete:
+  id: 2
   title: homework
   description: write 2-page essay for economics class
   status: complete
   completed_at: <%= 1.day.ago %> 
+  list_id: 2
+

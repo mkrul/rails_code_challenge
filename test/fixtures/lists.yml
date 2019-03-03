@@ -1,7 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+default:
+  id: 1
+  title: My List
 
-one:
-  title: MyString
-
-two:
-  title: MyString
+with_tasks:
+  id: 2
+  title: School

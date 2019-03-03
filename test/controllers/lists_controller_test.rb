@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class ListsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @list = lists(:one)
+    @list = lists(:default)
   end
 
   test "should get index" do
@@ -16,11 +16,11 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create list" do
-    assert_difference('List.count') do
+    assert_difference("List.count") do
       post lists_url, params: { list: { title: @list.title } }
     end
 
-    assert_redirected_to list_url(List.last)
+    assert_redirected_to lists_url
   end
 
   test "should show list" do
@@ -39,10 +39,11 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy list" do
-    assert_difference('List.count', -1) do
+    assert_difference("List.count", -1) do
       delete list_url(@list)
     end
 
     assert_redirected_to lists_url
+    assert_equal "List was successfully deleted.", flash[:notice]
   end
 end

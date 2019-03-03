@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @task = tasks(:default)
+    @task = tasks(:complete)
   end
 
   should "get index" do
@@ -12,6 +12,16 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   should "get new" do
     get new_task_url
+    assert_response :success
+  end
+
+  should "show task" do
+    get task_url(@task)
+    assert_response :success
+  end
+
+  should "get edit" do
+    get edit_task_url(@task)
     assert_response :success
   end
 
@@ -26,18 +36,8 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to task_url(Task.last)
+    assert_redirected_to lists_url
     assert_equal "Task was successfully created.", flash[:notice]
-  end
-
-  should "show task" do
-    get task_url(@task)
-    assert_response :success
-  end
-
-  should "get edit" do
-    get edit_task_url(@task)
-    assert_response :success
   end
 
   should "update task" do
@@ -47,14 +47,15 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
         title: @task.title
       }
     }
-    assert_redirected_to task_url(@task)
+    assert_redirected_to lists_url 
     assert_equal "Task was successfully updated.", flash[:notice]
   end
 
   should "toggle_completion" do
     put toggle_completion_path(@task)
-    assert_redirected_to tasks_url
-    assert_equal "Task was marked as complete.", flash[:notice]
+    @task.reload
+    assert_redirected_to lists_url
+    assert_equal "Task was marked as #{@task.status}.", flash[:notice]
   end
 
   should "destroy task" do
@@ -62,7 +63,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       delete task_url(@task)
     end
 
-    assert_redirected_to tasks_url
-    assert_equal "Task was successfully destroyed.", flash[:notice]
+    assert_redirected_to lists_url
+    assert_equal "Task was successfully deleted.", flash[:notice]
   end
 end
