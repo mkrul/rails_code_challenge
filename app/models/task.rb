@@ -12,4 +12,15 @@ class Task < ApplicationRecord
   def new_completed_at_time
     completed_at == nil ? Time.now : nil
   end
+
+  def self.format_params(title, description, list_id)
+    data = {
+      title: title,
+      description: description,
+      list_id: list_id
+    }
+    return data
+  end
+
 end
+

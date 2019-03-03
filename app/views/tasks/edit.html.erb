@@ -1,6 +1,6 @@
 <h1>Editing Task</h1>
 
-<%= render "form", task: @task, list: @list_titles %>
+<%= render "form", task: @task, list: @list_titles, commit: "Edit Task" %>
 
 <%= link_to "Show", @task %> |
-<%= link_to "Back to lists", lists_path %>
+<%= link_to "Back to Lists", lists_path %>

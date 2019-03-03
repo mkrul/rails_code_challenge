@@ -14,7 +14,7 @@
   <div class="field">
     <strong>List: </strong>
     <% if current_page?(controller: "tasks", action: "new") || current_page?(controller: "tasks", action: "edit") %>
-      <%= form.select :list_name, options_for_select(list) %>
+      <%= form.select :list_title, options_for_select(list) %>
     <% else %>
       <%= list.title %>
       <%= form.hidden_field :list_id, value: list.id %>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "#{commit}" %>
   </div>
 
 <% end %>

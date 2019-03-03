@@ -1,7 +1,5 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
-  before_action :get_list_titles, only: [:new, :edit]
-  before_action :get_list_id_from_title, only: [:update, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -16,25 +14,32 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    unless List.any?
+      default_list = List.create(title: "My List")
+    end
+    first_list_title = default_list.present? ? default_list.title : List.last.title
     @task = Task.new
+    @list_titles = [first_list_title, List.all.map(&:title)].flatten.uniq
   end
 
   # GET /tasks/1/edit
   def edit
+    first_list_title = @task.list.title
+    @list_titles = [first_list_title, List.all.map(&:title)].flatten.uniq
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    task_params = {
-      title: params[:task][:title],
-      description: params[:task][:description],
-      list_id: @list_id
-    }
-    @task = Task.new(task_params)
+    if params[:commit] == "New Task"
+      list_id = List.find_by_title(params[:task][:list_title]).id
+    else # Adding a task to a list
+      list_id = params[:task][:list_id]
+    end
 
+    task_params = Task.format_params(params[:task][:title], params[:task][:description], list_id)  
     respond_to do |format|
-      if @task.save
+      if @task = Task.create(task_params)
         format.html { redirect_to lists_url, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
@@ -47,11 +52,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    task_params = {
-      title: params[:task][:title],
-      description: params[:task][:description],
-      list_id: @list_id
-    }
+    task_params = Task.format_params(params[:task][:title], params[:task][:description], @task.list.id)
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to lists_url, notice: "Task was successfully updated." }
@@ -95,19 +96,8 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
-    def get_list_titles
-      List.create(title: "My List") unless List.any?
-      @list_titles = List.all.map(&:title)
-    end
-
-    def get_list_id_from_title
-      unless @list_id = params[:task][:list_id]
-        @list_id = List.find_by_title(params[:task][:list_name]).id
-      end
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :list_id, :list_name)
+      params.require(:task).permit(:title, :description, :list_id, :list_title)
     end
 end
