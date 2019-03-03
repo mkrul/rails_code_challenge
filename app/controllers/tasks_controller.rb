@@ -24,7 +24,10 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    first_list_title = @task.list.title
+    unless List.any?
+      default_list = List.create(title: "My List")
+    end
+    first_list_title = default_list.present? ? default_list.title : List.last.title
     @list_titles = [first_list_title, List.all.map(&:title)].flatten.uniq
   end
 
@@ -69,13 +72,12 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to lists_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to lists_url, notice: "Task was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   def toggle_completion
-    
     @task.update(status: @task.new_status, completed_at: @task.new_completed_at_time)
     list = List.find(@task.list_id)
 
