@@ -1,6 +1,8 @@
 <h1>Editing Subtask</h1>
 
-<%= render 'form', subtask: @subtask %>
+<%= render "form", subtask: @subtask %>
 
-<%= link_to 'Show', @subtask %> |
-<%= link_to 'Back', subtasks_path %>
+<%= link_to "<< Back", @subtask.task %> |
+<%= link_to "Go to Tasks", tasks_url %> |
+<%= link_to "Go to Lists", lists_url %>
+

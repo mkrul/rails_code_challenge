@@ -3,7 +3,7 @@
 <%= render partial: "tasks/form", locals: { task: @task, list: @list, commit: "Add Task" } %>
 
 <p>
-  <%= link_to "Show", @list %> |
-  <%= link_to "Back to Tasks", tasks_url %> |
-  <%= link_to "Back to Lists", lists_url %>
+  <%= link_to "<< Back", @list %> |
+  <%= link_to "Go to Tasks", tasks_url %> |
+  <%= link_to "Go to Lists", lists_url %>
 </p>

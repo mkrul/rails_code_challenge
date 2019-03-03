@@ -3,9 +3,9 @@
     <th><h1><%="#{@task.title}"%></h1></th>
     <th>
       <div class="horizontal-menu">
-        <%= link_to "Show", task %> |
+        <%= link_to "Show", @task %> |
         <%= link_to "Edit", edit_task_path(@task) %> |
-        <%= link_to "Delete", task, method: :delete, data: { confirm: "Are you sure?" } %> |
+        <%= link_to "Delete", @task, method: :delete, data: { confirm: "Are you sure?" } %> |
         <%= link_to "New Subtask", new_subtask_url(task_id: @task.id) %> |
         <%= link_to "Mark #{@task.new_status}", toggle_complete_path(@task), method: :put %>
       </div>

@@ -2,5 +2,8 @@
 
 <%= render partial: "lists", locals: { list: @list, tasks: @list.tasks } %>
 
-<p><%= link_to "Back to Lists", lists_url %></p>
+<p>
+  <%= link_to "Go to Tasks", tasks_url %> |
+  <%= link_to "Go to Lists", lists_url %>
+</p>
 

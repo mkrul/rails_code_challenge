@@ -44,7 +44,7 @@ class SubtasksController < ApplicationController
   def update
     respond_to do |format|
       if @subtask.update(subtask_params)
-        format.html { redirect_to tasks_url, notice: "Subtask was successfully updated." }
+        format.html { redirect_to task_path(@subtask.task), notice: "Subtask was successfully updated." }
         format.json { render :show, status: :ok, location: @subtask }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class SubtasksController < ApplicationController
   def destroy
     @subtask.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Subtask was successfully deleted." }
+      format.html { redirect_to task_path(@subtask.task), notice: "Subtask was successfully deleted." }
       format.json { head :no_content }
     end
   end

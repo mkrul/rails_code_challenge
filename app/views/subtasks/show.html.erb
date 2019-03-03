@@ -5,5 +5,17 @@
   <%= @subtask.title %>
 </p>
 
-<%= link_to "Edit", edit_subtask_path(@subtask) %> |
-<%= link_to "Back", subtasks_path %>
+<p>
+  <strong>Description:</strong>
+  <%= @subtask.description %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @subtask.task.title %>
+</p>
+
+<%= link_to "<< Back", @subtask.task %> |
+<%= link_to "Go to Tasks", tasks_url %> |
+<%= link_to "Go to Lists", lists_url %>
+

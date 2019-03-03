@@ -3,7 +3,7 @@
 <%= render partial: "subtasks/form", locals: { subtask: @subtask, task: @subtask.task } %>
 
 <p>
-  <%= link_to "Show", @task %> |
+  <%= link_to "<< #{@task.title}", @task %> |
   <%= link_to "Back to Tasks", tasks_url %> |
   <%= link_to "Back to Lists", lists_url %>
 </p>

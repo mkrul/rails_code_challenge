@@ -18,8 +18,8 @@
         <td><%=subtask.completed_at %></td>
         <td><%= link_to "Show", subtask %></td>
         <td><%= link_to "Edit", edit_subtask_path(subtask) %></td>
-        <td><%#= link_to "Delete", subtask, method: :delete %></td>
-        <td><%#= link_to "Mark #{subtask.new_status}", toggle_completion_path(task), method: :put, remote: true %></td>
+        <td><%= link_to "Delete", subtask, method: :delete %></td>
+        <td><%= link_to "Mark #{subtask.new_status}", toggle_complete_subtask_path(subtask), method: :put, remote: true %></td>
       </tr>
     <% end %>
   </tbody>
