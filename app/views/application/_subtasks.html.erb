@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Completed at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% subtasks.each do |subtask| %>
+      <tr>
+        <td><%=subtask.title %></td>
+        <td><%=subtask.description %></td>
+        <td><%=subtask.status %></td>
+        <td><%=subtask.completed_at %></td>
+        <td><%= link_to "Show", subtask %></td>
+        <td><%= link_to "Edit", edit_subtask_path(subtask) %></td>
+        <td><%#= link_to "Delete", subtask, method: :delete %></td>
+        <td><%#= link_to "Mark #{subtask.new_status}", toggle_completion_path(task), method: :put, remote: true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

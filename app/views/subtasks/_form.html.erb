@@ -12,11 +12,25 @@
   <% end %>
 
   <div class="field">
+    <strong>Task: </strong>
+    <%= @task.title %>
+    <%= form.hidden_field :task_id, value: @task.id %>
+    <%= form.hidden_field :list_id, value: @task.list_id %>
+  </div>
+
+  <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :subtask_title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>
+

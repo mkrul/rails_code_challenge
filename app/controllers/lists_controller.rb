@@ -23,10 +23,6 @@ class ListsController < ApplicationController
   def edit
   end
 
-  def new_added_task
-    @task = Task.new
-  end
-
   # POST /lists
   # POST /lists.json
   def create
@@ -80,6 +76,10 @@ class ListsController < ApplicationController
       format.html { redirect_to lists_url, notice: "List was marked as #{@list.status}." }
       format.json { render :index, status: ok }
     end
+  end
+
+  def new_added_task
+    @task = Task.new
   end
 
   private

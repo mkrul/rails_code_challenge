@@ -1,5 +1,5 @@
 class SubtasksController < ApplicationController
-  before_action :set_subtask, only: [:show, :edit, :update, :destroy, :new_added_subtask]
+  before_action :set_subtask, only: [:show, :edit, :update, :destroy]
 
   # GET /subtasks
   # GET /subtasks.json
@@ -15,13 +15,12 @@ class SubtasksController < ApplicationController
   # GET /subtasks/new
   def new
     @subtask = Subtask.new
+    @task = Task.find(params[:task_id])
   end
 
   # GET /subtasks/1/edit
   def edit
-  end
-
-  def new_added_subtask
+    @task = @subtask.task
   end
 
   # POST /subtasks
@@ -31,7 +30,7 @@ class SubtasksController < ApplicationController
 
     respond_to do |format|
       if @subtask.save
-        format.html { redirect_to @subtask, notice: 'Subtask was successfully created.' }
+        format.html { redirect_to task_path(@subtask.task), notice: "Subtask was successfully created." }
         format.json { render :show, status: :created, location: @subtask }
       else
         format.html { render :new }
@@ -45,7 +44,7 @@ class SubtasksController < ApplicationController
   def update
     respond_to do |format|
       if @subtask.update(subtask_params)
-        format.html { redirect_to @subtask, notice: 'Subtask was successfully updated.' }
+        format.html { redirect_to tasks_url, notice: "Subtask was successfully updated." }
         format.json { render :show, status: :ok, location: @subtask }
       else
         format.html { render :edit }
@@ -59,7 +58,7 @@ class SubtasksController < ApplicationController
   def destroy
     @subtask.destroy
     respond_to do |format|
-      format.html { redirect_to subtasks_url, notice: 'Subtask was successfully destroyed.' }
+      format.html { redirect_to tasks_url, notice: "Subtask was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -72,6 +71,6 @@ class SubtasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subtask_params
-      params.require(:subtask).permit(:title)
+      params.require(:subtask).permit(:title, :description, :task_id, :list_id)
     end
 end

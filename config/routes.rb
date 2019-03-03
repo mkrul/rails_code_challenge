@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   put "/lists/:id/toggle_complete", to: "lists#toggle_complete", as: "toggle_complete"
 
   resources :tasks
-  get "/tasks/:id/new_added_subtask", to: "tasks#new_added_subtask", as: "new_added_subtask"
   put "/tasks/:id/toggle_completion", to: "tasks#toggle_completion", as: "toggle_completion"
 end
 
