@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subtasks
   root "lists#index"
   resources :lists
   get "/lists/:id/new_list_task", to: "lists#new_list_task", as: "new_list_task"
