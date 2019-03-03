@@ -15,6 +15,11 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  should "get new_list_task" do
+    get new_list_task_path(@list)
+    assert_response :success
+  end
+
   should "create list" do
     assert_difference("List.count") do
       post lists_url, params: { list: { title: @list.title } }
