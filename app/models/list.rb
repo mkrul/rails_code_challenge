@@ -1,9 +1,11 @@
 class List < ApplicationRecord
   has_many :tasks
   validates :status, inclusion: { in: %w(complete pending) }
+  validates :title, uniqueness: true
 
   STATUS_COMPLETE = "complete".freeze
   STATUS_PENDING = "pending".freeze
+  MISCELLANEOUS_TASKS = "Miscellaneous Tasks".freeze
 
   def new_status
     status == STATUS_COMPLETE ? STATUS_PENDING : STATUS_COMPLETE

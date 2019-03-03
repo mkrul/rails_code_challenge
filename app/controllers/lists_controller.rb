@@ -1,11 +1,12 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy, :new_list_task, :toggle_complete]
+  before_action :check_misc_tasks_list
 
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all
-    @misc_tasks = Task.where(list_id: nil)
+    @lists = List.where.not(title: List::MISCELLANEOUS_TASKS)
+    @misc_list = List.find_by_title(List::MISCELLANEOUS_TASKS)
   end
 
   # GET /lists/1

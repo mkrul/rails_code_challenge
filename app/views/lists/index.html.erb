@@ -8,8 +8,7 @@
   <%= render partial: "lists", locals: { list: list, tasks: list.tasks } %>
 <% end %>
 
-<% unless @misc_tasks.empty? %>
-  <h1>Miscellaneous Tasks</h1>
-  <%= render partial: "tasks", locals: { tasks: @misc_tasks } %>
+<% if @misc_tasks.present? %>
+  <%= render partial: "lists", locals: { list: @misc_list, tasks: @misc_tasks } %>
 <% end %>
 

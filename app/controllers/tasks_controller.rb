@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_completion]
+  before_action :check_misc_tasks_list
 
   # GET /tasks
   # GET /tasks.json
@@ -14,6 +15,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    # TODO: refactor this
     unless List.any?
       default_list = List.create(title: "My List")
     end
@@ -24,6 +26,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    # TODO: refactor this
     unless List.any?
       default_list = List.create(title: "My List")
     end
@@ -55,7 +58,8 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    task_params = Task.format_params(params[:task][:title], params[:task][:description], @task.list.id)
+    list = List.find_by_title(params[:task][:list_title])
+    task_params = Task.format_params(params[:task][:title], params[:task][:description], list.id)
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to lists_url, notice: "Task was successfully updated." }
