@@ -18,4 +18,10 @@ class List < ApplicationRecord
   def self.get_list_params(params)
     list_id = params[:list_id].present? ? params[:list_id] : self.find_by_title(params[:task][:list_name]).id
   end
+
+  def get_incomplete_count
+    self.tasks.count + Task.joins(:subtasks).count
+  end
+
 end
+

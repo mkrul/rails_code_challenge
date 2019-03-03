@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= render partial: "lists", locals: { list: @list, tasks: @list.tasks } %>
+<%= render partial: "lists", locals: { list: @list, tasks: @list.tasks, incomplete_tasks: "#{@incomplete_count}" } %>
 
 <p>
   <%= link_to "Go to Tasks", tasks_url %> |

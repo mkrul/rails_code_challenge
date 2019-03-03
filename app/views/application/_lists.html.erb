@@ -8,6 +8,7 @@
         <%= link_to "Delete", list, method: :delete, data: { confirm: "Are you sure?" } %> |
         <%= link_to "Add Task", new_added_task_path(list) %> |
         <%= link_to "Mark #{list.new_status}", toggle_complete_path(list), method: :put %>
+        <%= "#{@incomplete_count}" %>
       </div>
     </th>
   </thead>

@@ -12,6 +12,8 @@ class ListsController < ApplicationController
   # GET /lists/1
   # GET /lists/1.json
   def show
+    @incomplete = @list.get_incomplete_count
+    @incomplete_count = "| #{@incomplete} incomplete tasks"
   end
 
   # GET /lists/new
