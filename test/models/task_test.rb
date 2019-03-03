@@ -26,7 +26,31 @@ class TaskTest < ActiveSupport::TestCase
 
     should "return a timestamp if completed_at is 'nil'" do
       time = @pending_task.new_completed_at_time
-      assert time.instance_of?(Time)
+      assert time.present?
     end
   end
+
+  context "#format_params" do
+    should "return a formatted hash of task parameters" do
+      original_params = {
+        task: {
+          title: "My Task",
+          description: "This is a description"
+        },
+        list_id: 1
+      }
+      new_params = Task.format_params(
+        original_params[:task][:title],
+        original_params[:task][:description],
+        original_params[:list_id]
+      )
+      expected_params = {
+        title: "My Task",
+        description: "This is a description",
+        list_id: 1
+      }
+      assert_equal expected_params, new_params
+    end
+  end
+
 end
