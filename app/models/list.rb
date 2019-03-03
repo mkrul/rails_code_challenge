@@ -5,7 +5,7 @@ class List < ApplicationRecord
 
   STATUS_COMPLETE = "complete".freeze
   STATUS_PENDING = "pending".freeze
-  MISCELLANEOUS_TASKS = "Miscellaneous Tasks".freeze
+  DEFAULT_TITLE = "My List".freeze
 
   def new_status
     status == STATUS_COMPLETE ? STATUS_PENDING : STATUS_COMPLETE

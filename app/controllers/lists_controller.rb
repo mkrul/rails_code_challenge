@@ -5,8 +5,8 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.where.not(title: List::MISCELLANEOUS_TASKS)
-    @misc_list = List.find_by_title(List::MISCELLANEOUS_TASKS)
+    @lists = List.where.not(title: List::DEFAULT_TITLE)
+    @misc_list = List.find_by_title(List::DEFAULT_TITLE)
   end
 
   # GET /lists/1
