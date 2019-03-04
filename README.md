@@ -8,7 +8,7 @@
 4) after the migration has run, type "rails server" to start the server
 5) open a browser and navigate to http://localhost:3000
 
-# Use Instructions
+# Instructions
 
 1) At the top of the main page, use the "Create New List" to create a new list
 2) In the header menu for your newly created list, click "Add Task" to add a task to your list
