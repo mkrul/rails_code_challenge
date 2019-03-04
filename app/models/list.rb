@@ -15,12 +15,13 @@ class List < ApplicationRecord
     completed_at == nil ? Time.now : nil
   end
 
-  def self.get_list_params(params)
-    list_id = params[:list_id].present? ? params[:list_id] : self.find_by_title(params[:task][:list_name]).id
+  def get_list_params(params)
+    params[:list_id].present? ? params[:list_id] : self.find_by_title(params[:task][:list_name]).id
   end
 
   def get_incomplete_count
-    self.tasks + Task.joins(:subtasks).count
+    count = Task.where(list_id: self.id, status: STATUS_PENDING).count
+    count += Subtask.where(list_id: self.id, status: STATUS_PENDING).count
   end
 
 end
