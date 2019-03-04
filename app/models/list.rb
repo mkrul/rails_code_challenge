@@ -20,7 +20,7 @@ class List < ApplicationRecord
   end
 
   def get_incomplete_count
-    self.tasks.count + Task.joins(:subtasks).count
+    self.tasks + Task.joins(:subtasks).count
   end
 
 end
