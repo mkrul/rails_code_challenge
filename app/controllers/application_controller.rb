@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def check_misc_tasks_list
     # misc_tasks are any tasks that have a nil list_id or belong to the Miscellaneous Tasks list
-    # these tasks are added to the "Miscellaneous Tasks" lists and displayed at the bottom of the /lists view
+    # these tasks are added to the "Miscellaneous Tasks" lists and displayed at the bottom of the /lists view 
     misc_task_list = List.find_or_create_by(title: List::DEFAULT_TITLE)
     @misc_tasks = Task.where(list_id: nil)
     @misc_tasks += misc_task_list.tasks
